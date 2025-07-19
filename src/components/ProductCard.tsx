@@ -36,7 +36,7 @@ export function ProductCard({ product, onViewProduct }: ProductCardProps) {
     <Card className="flex h-full flex-col overflow-hidden transition-all hover:shadow-lg">
       <button className="text-left" onClick={() => onViewProduct(product.name)} aria-label={`View details for ${product.name}`}>
         <CardHeader className="p-0">
-          <div className="relative aspect-[4/3]">
+          <div className="relative aspect-square">
             <Image
               src={product.image}
               alt={product.name}
@@ -45,17 +45,16 @@ export function ProductCard({ product, onViewProduct }: ProductCardProps) {
               data-ai-hint={product.hint}
             />
           </div>
-          <div className="p-4">
-              <CardTitle className="text-lg font-headline">{product.name}</CardTitle>
-              <CardDescription className="pt-2 text-base font-bold text-primary">{formatPrice(product.price)}</CardDescription>
+          <div className="p-4 pb-2">
+              <CardTitle className="text-base font-headline leading-tight">{product.name}</CardTitle>
           </div>
         </CardHeader>
       </button>
       <CardContent className="flex-grow p-4 pt-0">
-        <p className="text-sm text-muted-foreground">{product.description}</p>
+        <CardDescription className="text-sm font-bold text-primary">{formatPrice(product.price)}</CardDescription>
       </CardContent>
       <CardFooter className="p-4 pt-0">
-        <Button className="w-full" onClick={handleAddToCart}>
+        <Button size="sm" className="w-full" onClick={handleAddToCart}>
           <ShoppingCart className="mr-2 h-4 w-4" />
           Add to Cart
         </Button>

@@ -6,6 +6,7 @@ import { Header } from '@/components/Header';
 import { ProductList } from '@/components/ProductList';
 import { ProductRecommendations } from '@/components/ProductRecommendations';
 import { useToast } from '@/hooks/use-toast';
+import { FeaturedProducts } from '@/components/FeaturedProducts';
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -40,6 +41,10 @@ export default function Home() {
       <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <main className="flex-1">
         <div className="container mx-auto space-y-12 px-4 py-8 md:px-6">
+          <section>
+            <FeaturedProducts onViewProduct={handleViewProduct} />
+          </section>
+
           <section>
             <h2 className="mb-6 text-3xl font-bold font-headline md:text-4xl">Our Products</h2>
             <ProductList products={filteredProducts} onViewProduct={handleViewProduct} />
