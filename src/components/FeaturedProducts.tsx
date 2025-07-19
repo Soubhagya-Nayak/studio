@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
 import { getFeaturedProducts } from "@/ai/flows/featured-products";
 import { Product, products as allProducts } from "@/lib/products";
-import { ProductCard } from "./ProductCard";
+import { FeaturedProductCard } from "./FeaturedProductCard";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Star } from "lucide-react";
@@ -16,6 +17,9 @@ export function FeaturedProducts({ onViewProduct }: FeaturedProductsProps) {
   const [featured, setFeatured] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const plugin = useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: true })
+  );
 
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
@@ -65,12 +69,17 @@ export function FeaturedProducts({ onViewProduct }: FeaturedProductsProps) {
         {error && <p className="text-destructive">{error}</p>}
         
         {!loading && !error && featured.length > 0 && (
-          <Carousel opts={{ align: "start", loop: featured.length > 4 }}>
+          <Carousel 
+            opts={{ align: "start", loop: true }}
+            plugins={[plugin.current]}
+            onMouseEnter={plugin.current.stop}
+            onMouseLeave={plugin.current.reset}
+          >
             <CarouselContent className="-ml-4">
               {featured.map((product) => (
-                <CarouselItem key={product.id} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 pl-4">
+                <CarouselItem key={product.id} className="pl-4">
                   <div className="p-1 h-full">
-                     <ProductCard product={product} onViewProduct={onViewProduct} />
+                     <FeaturedProductCard product={product} onViewProduct={onViewProduct} />
                   </div>
                 </CarouselItem>
               ))}
