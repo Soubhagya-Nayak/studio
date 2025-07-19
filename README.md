@@ -1,5 +1,6 @@
-# Firebase Studio
+# Shoping Duniya 
 
-This is a NextJS starter in Firebase Studio.
+## E-Commerce Website under develop.
 
-To get started, take a look at src/app/page.tsx.
+This Website is made with Typescript and Next.js
+You can visit and make changes on it.
